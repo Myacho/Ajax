@@ -3,7 +3,9 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Ajax进阶</title>
+		<!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.1.1.js" ></script>-->
 		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<!--<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.4.1.js" ></script>-->
 		<script type="text/javascript">
 			$(function(){
 				$("form input[type=button]").click(function(){
@@ -30,12 +32,96 @@
 						}
 					});
 					
-					*/
-					
 					//跨域获取jsonp.php文件
+					$.ajax({
+						type:"POST",
+						url:"http://www.li.cc/jsonp.php",//失败
+						dataType:"json",
+						success:function(respond,status,xhr){
+							//alert(respond);
+							alert(respond.a);
+							console.log(respond);
+						}
+					});
 					
+					//本地获取jsonp2.php文件，成功，要加?callback=
+					$.getJSON("jsonp2.php?callback=?",function(response){
+						alert(response.a);
+						console.log(response);
+					});
 					
+					//$.getJSON跨域,远程，获取jsonp2.php文件,成功，一定要加?callback=
+					$.getJSON("http://www.li.cc/jsonp2.php?callback=?",function(response){
+						alert(response.a);
+						console.log(response);
+					});
 					
+					//跨域获取jsonp2.php文件   一定要加?callback=
+					$.ajax({
+						type:"POST",
+						url:"http://www.li.cc/jsonp2.php?callback=?",
+						dataType:"json",
+						success:function(respond,status,xhr){
+							//alert(respond);
+							alert(respond.a);
+							console.log(respond);
+						}
+					});
+					
+					//跨域获取jsonp2.php文件   不加?callback=，修改dataType类型
+					$.ajax({
+						type:"POST",
+						url:"http://www.li.cc/jsonp2.php?callback=?",
+						dataType:"jsonp",
+						success:function(respond,status,xhr){
+							//alert(respond);
+							alert(respond.a);
+							console.log(respond);
+						}
+					});
+					
+					$.ajax({
+						type:"POST",
+						url:"user.php",
+						data:$("form").serialize(),
+						success:function(respond,status,xhr){
+							alert(respond + 1);
+						},
+						success:function(respond,status,xhr){
+							alert(respond + 2);//只能提交一个，第二个把第一个覆盖了
+						}
+					});
+					
+					//jqXHR就是$.ajax返回的对象  jqXHR1.可以连缀done(),always(),fail()等,2.可以多次执行同一个回调函数  3.为多个操作指定回调函数
+					var jqXHR = $.ajax({
+						type:"POST",
+						url:"user.php",
+						data:$("form").serialize()
+					});
+					//alert(jqXHR);
+					jqXHR.done(function(response){
+						alert(response + "1");
+					}).done(function(response){
+						alert(response + "2");
+					});
+					jqXHR.done(function(response){
+						alert(response + "3");
+					});
+					*/
+					var jqXHR1 = $.ajax("t1.php");
+					var jqXHR2 = $.ajax("t2.php");
+//					jqXHR1.done(function(response){
+//						alert(response);
+//					});
+//					jqXHR2.done(function(response){
+//						alert(response);
+//					});
+					$.when(jqXHR1,jqXHR2).done(function(r1,r2){
+						//alert(r1);
+						//alert(r2);
+						alert(r1[0]);
+						alert(r2[0]);
+					});
 					
 					
 				});				
