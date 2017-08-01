@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Ajax进阶</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$("form input[type=button]").click(function(){
+					/*
+					$.ajax({
+						type:"POST",
+						url:"test.json",
+						dataType:"json",
+						//dataType:"html",
+						success:function(respond,status,xhr){
+							alert(respond[0].url);
+							//alert(respond);
+						}
+					});
+					
+					//本地获取jsonp.php文件，成功
+					$.ajax({
+						type:"POST",
+						url:"jsonp.php",
+						dataType:"json",
+						success:function(respond,status,xhr){
+							//alert(respond);
+							alert(respond.a);
+						}
+					});
+					
+					*/
+					
+					//跨域获取jsonp.php文件
+					
+					
+					
+					
+					
+				});				
+			});
+		</script>
+	</head>
+	<body>
+		<!--<input type="button" value="异步加载数据" />-->
+		<form>
+			用户名：<input type="text" name="user" />
+			邮箱：<input type="text" name="email" />
+			<input type="radio" name="sex" value="男" />男
+			<input type="radio" name="sex" value="女" />女
+			<input type="button" value="提交" />
+		</form>
+		<div id="box"></div>
+	</body>
+</html>
