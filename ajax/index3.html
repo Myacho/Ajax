@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Ajax</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*
+				$("input").click(function(){
+					$.ajax({
+						type:"POST",
+						url:"test.php",
+						data:{
+							url:"www.yck.com"
+						},
+						success:function(respond,status,xhr){
+							$("#box").html(respond);
+						}
+					});
+				});
+				
+				$("form input[type=button]").click(function(){
+					//alert("");
+					$.ajax({
+						type:"POST",
+						url:"user.php",
+						data:{
+							user:$("form input[name=user]").val(),
+							email:$("form input[name=email]").val()
+						},
+						success:function(respond,status,xhr){
+							$("#box").html(respond);
+						}
+					});					
+				});
+				
+				//表单元素特别多的时候写起来麻烦，易出错
+				//复制提交的JS内容时，data属性需要修改的特别多
+				//表单序列化
+				$("form input[type=button]").click(function(){
+					$.ajax({
+						type:"POST",
+						url:"user.php",
+						data:$("form").serialize(),
+						success:function(respond,status,xhr){
+							$("#box").html(respond);
+						}
+					});					
+				});
+				alert($("form").serialize());//字符串形式的键值对，并且还对URL进行了编码
+				
+				$("form input[name=sex]").click(function(){
+					$("#box").html(decodeURIComponent($(this).serialize()));//decodeURIComponent进行解码
+				});
+				
+				$("form input[name=sex]").click(function(){
+					//$("#box").html($(this).serializeArray());//serializeArray转化为json数据
+					//console.log($(this).serializeArray());//在控制台查看数据
+					//在页面上显示json
+					var json = $(this).serializeArray();
+					//$("#box").html(json[0].value);
+					$("#box").html(json[0].name + '=' + json[0].value);
+				});
+				
+				$("form input[type=button]").click(function(){
+					//$.ajaxSetup请求默认值初始化参数
+					//初始化重复的属性
+					$.ajaxSetup({
+						type:"POST",
+						url:"user.php",
+						data:$("form").serialize(),
+					});
+					$.ajax({
+//						type:"POST",
+//						url:"user.php",
+//						data:$("form").serialize(),
+						success:function(respond,status,xhr){
+							$("#box").html(respond);
+						}
+					});					
+				});
+				*/
+				
+				//以对象形式传递键值对
+				$("form input[type=button]").click(function(){
+					$.ajax({
+						type:"POST",
+						url:"user.php",
+						data:$.param({//$.param解析对象键值对
+							user:$("form input[name=user]").val(),
+							email:$("form input[name=email]").val()
+						}),
+						success:function(respond,status,xhr){
+							$("#box").html(respond);
+						}
+					});					
+				});
+				
+			
+
+			});
+		</script>
+	</head>
+	<body>
+		<!--<input type="button" value="异步加载数据" />-->
+		<form>
+			用户名：<input type="text" name="user" />
+			邮箱：<input type="text" name="email" />
+			<input type="radio" name="sex" value="男" />男
+			<input type="radio" name="sex" value="女" />女
+			<input type="button" value="提交" />
+		</form>
+		<div id="box"></div>
+	</body>
+</html>

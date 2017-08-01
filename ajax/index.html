@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Ajax</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				
+			//ajax局部方法
+				/*
+				$("input").click(function(){
+					$("#box").load("test.html .title");
+				});
+				
+				//get方式提交
+				$("input").click(function(){
+					$("#box").load("test.php?url=www.yck.com");
+				});
+				
+				//post方式提交
+				$("input").click(function(){
+					$("#box").load("test.php",{
+						url:"www.yck.com"
+					});
+				});
+				*/
+				
+				
+				
+				//回调函数
+				$("input").click(function(){
+					$("#box").load("test.php",{
+						url:"www.yck.com"
+					},function(respond,status,xhr){
+						//alert(respond);
+						//$("#box").html(respond + "123");
+						//alert(status);
+						//if (status == "success") {
+						//	alert("成功后的处理");
+						//}
+						//alert(xhr);
+						//alert(xhr.responseText);//作为响应主题被返回的文本
+						//alert(xhr.responseXML);//如果响应主题内容类型是“text/xml或者application/xml",则返回包含响应数据的XML,DOM文档
+						//alert(xhr.status);//响应的http状态
+						alert(xhr.statusText);//http状态的说明
+					
+					});
+				});
+				
+				
+			});
+		</script>
+	</head>
+	<body>
+		<input type="button" value="异步加载数据" />
+		<div id="box"></div>
+	</body>
+</html>
